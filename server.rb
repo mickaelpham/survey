@@ -1,23 +1,34 @@
+require 'json'
+require 'redis'
 require 'sinatra'
 require 'thin'
-require 'json'
+
+module KeyValueStore
+  class << self
+    def incr(counter)
+      provider.incr(counter)
+    end
+
+    private
+
+    def provider
+      @provider ||= Redis.new(host: 'redis')
+    end
+  end
+end
 
 get '/hello' do
   [200, { 'Content-Type' => 'application/json' }, { hello: 'world' }.to_json]
 end
 
-module Stats
-  def self.counter
-    @counter ||= 0
-  end
+post '/incr' do
+  count = KeyValueStore.incr(:my_counter)
 
-  def self.counter=(val)
-    @counter = val
-  end
+  [201, { 'Content-Type' => 'text/plain' }, count.to_s]
 end
 
-post '/incr' do
-  Stats.counter += 1
+post '/another-incr' do
+  count = KeyValueStore.incr(:another_counter)
 
-  [201, { 'Content-Type' => 'text/plain' }, Stats.counter.to_s]
+  [201, { 'Content-Type' => 'application/json' }, { success: true, value: count }.to_json]
 end

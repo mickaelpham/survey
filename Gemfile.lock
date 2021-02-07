@@ -13,6 +13,7 @@ GEM
     rack-protection (2.1.0)
       rack
     rainbow (3.0.0)
+    redis (4.2.5)
     regexp_parser (2.0.3)
     rexml (3.2.4)
     rubocop (1.9.1)
@@ -49,6 +50,7 @@ PLATFORMS
   x86_64-linux-musl
 
 DEPENDENCIES
+  redis
   rubocop
   rubocop-performance
   rubocop-rake
