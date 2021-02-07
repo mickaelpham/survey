@@ -9,6 +9,9 @@ services:
     restart: always
     environment:
       POSTGRES_PASSWORD: example
+      POSTGRES_DB: survey_development
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d
 
   web:
     build: .

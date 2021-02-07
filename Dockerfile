@@ -20,4 +20,4 @@ RUN bundle install --jobs 20 --retry 5
 
 COPY . .
 
-CMD ["bundle", "exec", "ruby", "server.rb", "-o", "0.0.0.0"]
+CMD ["bundle", "exec", "rackup", "-p", "4567", "--host", "0.0.0.0"]
