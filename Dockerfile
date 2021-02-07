@@ -7,7 +7,8 @@ RUN apk add -U --no-cache \
 g++ \
 musl-dev \
 make \
-libstdc++
+libstdc++ \
+postgresql-dev
 
 RUN gem install bundler -v "${BUNDLE_VERSION}"
 

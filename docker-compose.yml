@@ -4,9 +4,23 @@ services:
   redis:
     image: redis:6-alpine
 
+  postgres:
+    image: postgres:13-alpine
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: example
+
   web:
     build: .
     volumes:
       - .:/var/app
     ports:
       - 4567:4567
+    depends_on:
+      - postgres
+    environment:
+      DB_HOST: postgres
+      DB_USER: postgres
+      DB_PASSWORD: example
+      DB_NAME: survey_development
+      REDIS_HOST: redis
