@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Application < Sinatra::Application
   get '/hello' do
     [200, { 'Content-Type' => 'application/json' }, { hello: 'world' }.to_json]
